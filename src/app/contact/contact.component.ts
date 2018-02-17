@@ -9,7 +9,7 @@ import { Feedback, ContactType } from '../shared/feedback';
 })
 export class ContactComponent implements OnInit {
 
-  feedbackFrom: FormGroup;
+  feedbackForm: FormGroup;
   feedback: Feedback;
   contactType = ContactType;
 
@@ -22,11 +22,11 @@ export class ContactComponent implements OnInit {
   ngOnInit() {
   }
   createForm() {
-    this.feedbackFrom = this.fb.group({
-      firstname: '',
-      lastname: '',
-      telnum: 0,
-      email: '',
+    this.feedbackForm = this.fb.group({
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      telnum: [0, Validators.required],
+      email: ['', Validators.required],
       agree: false,
       contacttype: 'None',
       message: ''
@@ -35,8 +35,17 @@ export class ContactComponent implements OnInit {
 
 
   onSubmit() {
-    this.feedback = this.feedbackFrom.value;
+    this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
-    this.feedbackFrom.reset();
+    this.feedbackForm.reset({
+      firstname: '',
+      lastname:'',
+      telnum: '',
+      email: '',
+      agree: false,
+      contacttype: 'None',
+      message: ''
+    });
+
   }
 }
