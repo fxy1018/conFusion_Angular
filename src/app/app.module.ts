@@ -23,9 +23,10 @@ import { LoginComponent } from './login/login.component';
 import { DishService} from './services/dish.service';
 import { PromotionService } from './services/promotion.service';
 import { LeaderService } from './services/leader.service';
+import { ProcessHttpmsgService } from './services/process-httpmsg.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
-
+import { baseURL } from './shared/baseurl';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,11 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
   entryComponents: [
         LoginComponent
   ],
-  providers: [ DishService, PromotionService, LeaderService],
+  providers: [ DishService,
+    PromotionService,
+    LeaderService,
+    { provide: 'BaseURL', useValue: baseURL },
+    ProcessHttpmsgService, ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

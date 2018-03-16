@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, Inject} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -31,19 +31,18 @@ export class DishdetailComponent implements OnInit {
     'author': {
       'required': 'Author Name is required',
       'minlength': 'Author Name must be at least 2 characters long',
-      'maxlength': 'First Name cannot be more than 25 characters long'
+      'maxlength': 'Author Name cannot be more than 25 characters long'
     },
     'comment': {
-      'required': 'Comment is required',
-      'minlength': 'Last Name must be at least 2 characters long',
-      'maxlength': 'Last Name cannot be more than 25 characters long'
+      'required': 'Comment is required'
     }
   };
 
   constructor(private dishService: DishService,
               private location: Location,
               private route: ActivatedRoute,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              @Inject('BaseURL') private BaseURL) {
                 this.createForm();
               }
 
