@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject} from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -21,6 +21,8 @@ export class DishdetailComponent implements OnInit {
   next: number;
   commentForm: FormGroup;
   comment: Comment;
+  errMess: string;
+
 
   formErrors = {
     'author': '',
@@ -52,7 +54,8 @@ export class DishdetailComponent implements OnInit {
 
     this.route.params
     .switchMap((params: Params)=> this.dishService.getDish(+params['id']))
-    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id)});
+    .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id),
+      errmess => this.errMess = <any>errmess});
   }
 
   setPrevNext(dishId: number) {

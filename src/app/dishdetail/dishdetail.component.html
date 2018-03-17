@@ -80,8 +80,12 @@
       [disabled]='commentForm.invalid'>Submit</button>
     </form>
 
-    <div [hidden]="dish">
+    <div [hidden]="dish || errMess">
       <md-spinner></md-spinner> <h4>Loading... Please Wait</h4>
+    </div>
+    <div *ngIf="errMess">
+      <h2>Error</h2>
+      <h4>{{errMess}}</h4>
     </div>
   </div>
 </div>

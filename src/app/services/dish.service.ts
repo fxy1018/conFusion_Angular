@@ -22,6 +22,7 @@ export class DishService {
   getDishes(): Observable<Dish[]>{
     return this.http.get(baseURL + 'dishes')
       .map(res => {return this.processHttpmsgService.extractData(res)})
+      .catch(error => {return this.processHttpmsgService.handleError(error)})
 
     // return new Promise(resolve => {
     //   //Simulate server laterncy with 2 second delay
@@ -32,6 +33,7 @@ export class DishService {
   getDish(id: number): Observable<Dish> {
    return this.http.get(baseURL + 'dishes/' + id)
     .map(res => {return this.processHttpmsgService.extractData(res)})
+    .catch(error => {return this.processHttpmsgService.handleError(error)})
    // return new Promise(resolve => {
    //   //Simulate server laterncy with 2 second delay
    //   setTimeout(() => resolve(DISHES.filter((dish) => (dish.id === id))[0]), 2000);
@@ -43,6 +45,7 @@ export class DishService {
  getFeaturedDish(): Observable<Dish> {
    return this.http.get(baseURL + 'dishes?feature=true' )
     .map(res => {return this.processHttpmsgService.extractData(res)[0]})
+    .catch(error => {return this.processHttpmsgService.handleError(error)})
    // return new Promise(resolve=>{
    //   setTimeout(()=>resolve(DISHES.filter((dish) => dish.featured)[0]), 2000);
    // });
@@ -50,6 +53,7 @@ export class DishService {
 
  getDishIds(): Observable<number[]> {
    return this.getDishes()
-    .map(dishes => {return dishes.map(dish => dish.id)});
+    .map(dishes => {return dishes.map(dish => dish.id)})
+    .catch(error => {return error; });
  }
 }
