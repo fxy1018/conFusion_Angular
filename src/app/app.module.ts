@@ -29,6 +29,7 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { baseURL } from './shared/baseurl';
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
+import { HighlightDirective } from './directives/highlight.directive';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { RestangularConfigFactory } from './shared/restConfig';
     AboutComponent,
     ContactComponent,
     LoginComponent,
+    HighlightDirective,
 
   ],
   imports: [
