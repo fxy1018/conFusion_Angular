@@ -1,37 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Promotion } from '../shared/promotion';
-import { PROMOTIONS } from '../shared/promotions';
+//import { PROMOTIONS } from '../shared/promotions';
+import { Http, Response } from '@angular/http';
+
 
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/Observable/of'
+import { baseURL } from '../shared/baseurl';
+import { ProcessHttpmsgService } from './process-httpmsg.service';
+import { RestangularModule, Restangular } from 'ngx-restangular';
 
+
+import 'rxjs/add/Observable/of'
 import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class PromotionService {
 
-  constructor() { }
+  constructor(private restangular: Restangular,
+  private processHttpmsgService: ProcessHttpmsgService) { }
 
   getPromotions(): Observable<Promotion[]> {
-    return Observable.of(PROMOTIONS).delay(2000);
-    // return new Promise(resolve => {
-    //   setTimeout(() => resolve(PROMOTIONS), 2000);
-    // })
+    return this.restangular.all('promotions').getList();
+
   }
 
   getPromotion(id: number): Observable<Promotion> {
-    return Observable.of(PROMOTIONS.filter((promo) => (promo.id === id))[0]).delay(2000);
+    return this.restangular.one('promotions', id).get();
 
-    // return new Promise(resolve => {
-    //   setTimeout(() => resolve(PROMOTIONS.filter((promo) => (promo.id === id))[0]), 2000);
-    // })
   }
 
   getFeaturedPromotion(): Observable<Promotion> {
-    return Observable.of(PROMOTIONS.filter((promotion) => promotion.featured)[0]).delay(2000);
+    return this.restangular.all('promotions').getList({featured: true})
+      .map(promotions => promotions[0]);
 
-    // return new Promise(resolve => {
-    //   setTimeout(() => resolve(PROMOTIONS.filter((promotion) => promotion.featured)[0]), 2000);
-    // })
   }
 }
